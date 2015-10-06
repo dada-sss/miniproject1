@@ -60,11 +60,11 @@ void calendar(int year, int daycode)
 
 int main(void)
 {
-	int year, daycode, leapyear;
+	int year, day, leapyear;
 	
 	year = inputyear();
 	days = daycode(year);//yet to be writtern
 	checkleapyear(year);
-	calendar(year, daycode);
+	calendar(year, day);
 	printf("\n");
 }
