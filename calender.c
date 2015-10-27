@@ -49,7 +49,6 @@ void addmember() {
 			scanf("%d",&mem.id);
 			
 			printf("Enter member Name:");
-			fflush(stdin);
 			scanf("%s",mem.name);
 
 
@@ -103,12 +102,11 @@ void addbooks(){
 		
 			printf("Enter Book Name:");
 			scanf("%d",&flush);
-			fflush(stdin);
-			fgets(name,50,stdin);
+			scanf("%s",&name);
 			strcpy(bk.name,name);
 
 			printf("Enter Book Author:");
-			fgets(author,50,stdin);
+			scanf("%s",a);
 			strcpy(bk.author,author);
 
 
