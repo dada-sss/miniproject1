@@ -32,7 +32,7 @@ struct member {
  *The user(the "Librarian" only!) has to input the member ID and name of student.
  *It gets stored in file*/
 void addmember() {
-	int choice,flush;
+	int choice;
 	struct member mem;
 	char name[50];
 	int id;
@@ -84,7 +84,7 @@ void viewmember() {
  *It gets stored in file*/
 
 void addbooks(){
-	int choice,flush;
+	int choice;
 	struct book bk;
 	char name[50], author[50];
 	int quantity, rackno;
@@ -101,7 +101,6 @@ void addbooks(){
 			scanf("%d",&bk.id);
 		
 			printf("Enter Book Name:");
-			scanf("%d",&flush);
 			scanf("%s",&name);
 			strcpy(bk.name,name);
 
