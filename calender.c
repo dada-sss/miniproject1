@@ -119,3 +119,46 @@ void addbooks(){
 	
 
 }
+void displayrules() {
+	char array[1600];
+	FILE *fp
+	fp = fopen("rules.txt","r");
+	if(!fp){
+		printf("error\n");
+	)
+	fscanf(fp,%s,array);
+	printf("%s\n", array);
+	fclose(fp);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
