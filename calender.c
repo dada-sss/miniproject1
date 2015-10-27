@@ -51,19 +51,7 @@ void addmember() {
 			printf("Enter member Name:");
 			scanf("%s",mem.name);
 
-
-		printf("Save the record and go to menu? 1.Yes 2.No \n");
-		scanf("%d",&choice);
-		if(choice == 1){
-			fwrite(&mem,sizeof(mem),1,fm);
-			fclose(fm);
-			menu();
-			return;
-		}
-	}while(choice == 1);
-	if(choice == 2) {
-		menu();
-	}
+l
 }
 
 /*Shows all the records of member- Their ID and names*/
@@ -87,7 +75,6 @@ void addbooks(){
 	int choice;
 	struct book bk;
 	char name[50], author[50];
-	int quantity, rackno;
 	FILE *fp;
 	fp = fopen("book.txt","a");
 
@@ -105,18 +92,15 @@ void addbooks(){
 			strcpy(bk.name,name);
 
 			printf("Enter Book Author:");
-			scanf("%s",a);
-			strcpy(bk.author,author);
-
-
+			scanf("%s",bk.author);
 
 			printf("Enter number of copies:");
-			scanf("%d",&quantity);
-			bk.quantity=quantity;
+			scanf("%d",&bk.quantity);
+		
 		
 			printf("enter rack number :");
-			scanf("%d",&rackno);
-			bk.rackno=rackno;
+			scanf("%d",&bk.rackno);
+			
 
 		
 		
