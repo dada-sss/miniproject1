@@ -60,11 +60,11 @@ typedef struct issue {
 	char book_name[20];
 	char member_name[20];
 	int i_day;
-	int i_mon;
-	int i_yr;
+	int i_month;
+	int i_year;
 	int r_day;
-	int r_mon;
-	int r_yr;
+	int r_month;
+	int r_year;
 
 } issue;
 
@@ -182,8 +182,8 @@ void add_book() {
 
 /*issue books to students*/
 void issue_book() {
-	struct member read;
-	struct issue iss;
+	struct member mem;
+	struct issue xyz;
 	struct book confirm;
 	char name[50],choice[2];
 	
@@ -203,33 +203,33 @@ void issue_book() {
 	}
 	
 	printw("Please Enter member ID:");
-	scanw("%d",&iss.member_id);
+	scanw("%d",&xyz.member_id);
 
 	printw("Enter date of issue");
-	scanw("%d",&iss.i_day);
+	scanw("%d",&xyz.i_day);
 
 	printw("Enter month of issue");
-	scanw("%d",&iss.i_mon);
+	scanw("%d",&xyz.i_month);
 
 	printw("Enter year of issue");
-	scanw("%d",&iss.i_yr);
+	scanw("%d",&xyz.i_year);
 
 	printw("Enter date of return");
-	scanw("%d",&iss.r_day);
+	scanw("%d",&xyz.r_day);
 
 	printw("Enter month of return");
-	scanw("%d",&iss.r_mon);
+	scanw("%d",&xyz.r_month);
 
 	printw("Enter year of return");
-	scanw("%d",&iss.r_yr);
+	scanw("%d",&xyz.r_year);
 	//we make sure that the member that the book is issued to exists in the records
-	while (fread (&read, sizeof(struct member), 1, fm)) {
-		if(read.id == iss.member_id) {
-			strcpy(iss.member_name, read.mem_name);
+	while (fread (&mem, sizeof(struct member), 1, fm)) {
+		if(mem.id == xyz.member_id) {
+			strcpy(xyz.member_name, mem.mem_name);
 		}
 	}
 
-	fwrite(&iss,sizeof(iss),1,fi);
+	fwrite(&xyz,sizeof(struct issue),1,fi);
 	/*we write this record in the issue file so that these files can be viewed at once*/
 	printw("ISSUED..Do you want to issue more books?(press y) else press any other key\n");
 	scanw("%s",choice);
@@ -247,7 +247,7 @@ void issue_book() {
 void return_book() {
 
 	char book[50],name[20];
-	struct issue read;
+	struct issue abc;
 	int fine, date = 15 ;
 	clear();
 	
@@ -255,21 +255,21 @@ void return_book() {
 	scanw("%s",name);
 	
 	FILE *fi = fopen("issue.txt","r");
-	while (fread (&read, sizeof(struct issue), 1, fi)) {
-		if( strcmp(read.member_name,name) == 0 ) { 
+	while (fread (&abc, sizeof(struct issue), 1, fi)) {
+		if( strcmp(abc.member_name,name) == 0 ) { 
 			
-			printw ("Member ID = %d\n",read.member_id); 
-			printw("Member Name = %s\n",read.member_name);
-			printw("Issue date =  %d/%d/%d\n",read.i_day,read.i_mon,read.i_yr);  
-			printw("Return Date  %d/%d/%d\n",read.r_day,read.r_mon,read.r_yr);
+			printw ("Member ID = %d\n",abc.member_id); 
+			printw("Member Name = %s\n",abc.member_name);
+			printw("Issue date =  %d/%d/%d\n",abc.i_day,abc.i_month,abc.i_year);  
+			printw("Return Date  %d/%d/%d\n",abc.r_day,abc.r_month,abc.r_year);
 
 		}
 	}	
-	if(15 <= read.r_day) {
+	if(15 <= abc.r_day) {
 		printw("On time.no fine.Thankyou\n");
 	}
-	else if(15 > read.r_day) {
-		fine = (date - read.r_day)*50;
+	else if(15 > abc.r_day) {
+		fine = (date - abc.r_day)*50;
 		printw("Book not returned on time.Please pay fine of %d\n",fine);
 	}
 	getch();
@@ -282,7 +282,7 @@ void search_book() {
 	FILE *fp;
 	char name[50],cho[2];
 	int id,selection;
-	struct book read;
+	struct book search;
 	
 	fp = fopen("book.txt","r");
 	clear();
@@ -292,14 +292,14 @@ void search_book() {
 	if(selection == 1) {
 		printw("Enter book ID:\n");
 			scanw("%d",&id);
-		while (fread (&read, sizeof(struct book), 1, fp)) {
+		while (fread (&search, sizeof(struct book), 1, fp)) {
 		
-			if(read.id==id) {
+			if(search.id==id) {
 			
-				printw("Name: %s\n", read.book_name);
-				printw("Author: %s\n", read.author);
-				printw("Quantity:%d\n", read.qty);
-				printw("Category:%d\n",read.category);
+				printw("Name: %s\n", search.book_name);
+				printw("Author: %s\n", search.author);
+				printw("Quantity:%d\n", search.qty);
+				printw("Category:%d\n",search.category);
 				     
 			}
 		}
@@ -308,12 +308,12 @@ void search_book() {
 	
 		printw("Enter book Name:\n");
 		scanw("%s",name);
-		while (fread (&read, sizeof(struct book), 1, fp)) {
-			if(strcmp(read.book_name,name) == 0) { 
-				printw("ID: %d\n",read.id);
-				printw("Author: %s\n" ,read.author);
-				printw("Quantity:%d\n",read.qty);
-				printw("Category:  %s\n",read.category);
+		while (fread (&search, sizeof(struct book), 1, fp)) {
+			if(strcmp(search.book_name,name) == 0) { 
+				printw("ID: %d\n",search.id);
+				printw("Author: %s\n" ,search.author);
+				printw("Quantity:%d\n",search.qty);
+				printw("Category:  %s\n",search.category);
 			}
 		}
 	}
@@ -519,9 +519,9 @@ void view_issued() {
 		move(x,35);
 		printw("%s",view.member_name);
 		move(x,50);
-		printw("%d/%d/%d",view.i_day,view.i_mon,view.i_yr);
+		printw("%d/%d/%d",view.i_day,view.i_month,view.i_year);
 		move(x,65);
-		printw("%d/%d/%d",view.r_day,view.r_mon,view.r_yr);
+		printw("%d/%d/%d",view.r_day,view.r_month,view.r_year);
 		
 	}
 	getch();
@@ -532,7 +532,7 @@ void view_issued() {
 /*It gives access to Student or Administrator(Librarian)*/
 void user_login() {	
 	int choice;
-	printw("ENTER CHOICE : 1.STUDENT   2.ADMINISTRATOR\n");
+	printw("ENTER CHOICE : 1.STUDENT     2.ADMINISTRATOR\n");
 	scanw("%d", &choice);
 	
 	if(choice == 1)
@@ -687,7 +687,6 @@ int main() {
 	endwin();
 	return 0;
 }
-
 
 
 
